@@ -24,6 +24,12 @@ npm start
 
 不要用 GitHub Pages 單獨部署這個版本；它只能放靜態網頁，不能提供即時房間伺服器。
 
+### GitHub Pages 試玩版（只有電腦對戰）
+
+本專案已經附上 GitHub Pages 自動部署設定。推送到 GitHub 後，到儲存庫的 **Settings → Pages → Build and deployment**，把來源選成 **GitHub Actions**。之後每次推送到 `main`，GitHub 會自動發布 `public` 資料夾。
+
+Pages 網址通常是：`https://你的帳號.github.io/儲存庫名稱/`。這個網址可以試玩完整的電腦對戰，而且離線也可玩；好友即時對戰仍需要把整個專案部署到 Render 或 Railway。
+
 ## 已包含
 
 - 紅黑兩人房間與邀請連結

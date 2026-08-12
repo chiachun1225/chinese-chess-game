@@ -1,8 +1,9 @@
 const $=id=>document.getElementById(id);
 const chars={red:{r:'俥',n:'傌',b:'相',a:'仕',k:'帥',c:'炮',p:'兵'},black:{r:'車',n:'馬',b:'象',a:'士',k:'將',c:'砲',p:'卒'}};
 let socket,state,selected=null,mode='online',difficulty='normal',thinking=false;
+const staticPreview=location.protocol==='file:'||location.hostname.endsWith('github.io');
 const board=$('board'),lobby=$('lobby'),game=$('game');
-function connect(){const protocol=location.protocol==='https:'?'wss':'ws';try{socket=new WebSocket(`${protocol}://${location.host}`);socket.onopen=()=>{$('connection').textContent='已連線'};socket.onclose=()=>{$('connection').textContent='離線模式可使用'};socket.onmessage=e=>handle(JSON.parse(e.data))}catch{$('connection').textContent='離線模式可使用'}}
+function connect(){if(staticPreview){$('connection').textContent='GitHub Pages 試玩版';$('onlineNote').classList.remove('hidden');$('create').disabled=true;$('create').title='GitHub Pages 無法執行即時對戰伺服器';return}const protocol=location.protocol==='https:'?'wss':'ws';try{socket=new WebSocket(`${protocol}://${location.host}`);socket.onopen=()=>{$('connection').textContent='已連線'};socket.onclose=()=>{$('connection').textContent='離線模式可使用'};socket.onmessage=e=>handle(JSON.parse(e.data))}catch{$('connection').textContent='離線模式可使用'}}
 function message(data){if(socket?.readyState===WebSocket.OPEN)socket.send(JSON.stringify(data));else showError('lobbyError','目前無法連線到好友對戰伺服器。')}
 function handle(data){if(data.type==='error'){showError(mode==='computer'?'gameError':state?'gameError':'lobbyError',data.message);return}if(data.type==='state'){mode='online';thinking=false;state=data;selected=null;lobby.classList.add('hidden');game.classList.remove('hidden');history.replaceState(null,'',`?room=${data.roomId}`);render()}}
 function showError(id,text){$(id).textContent=text;setTimeout(()=>{$(id).textContent=''},3500)}
