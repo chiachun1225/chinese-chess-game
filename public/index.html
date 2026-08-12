@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>棋友・線上象棋</title><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="computer.css">
+</head>
+<body>
+  <main class="app-shell">
+    <header><a class="brand" href="/">棋友 <span>XIANGQI</span></a><div id="connection" class="connection">連線中</div></header>
+    <section id="lobby" class="lobby panel">
+      <p class="eyebrow">線上中國象棋</p><h1>揪朋友，下一盤棋。</h1><p class="intro">不用註冊。建立房間後，把連結傳給朋友就能開始。</p>
+      <label>你的暱稱<input id="name" maxlength="18" placeholder="例如：小明" autocomplete="nickname"></label>
+      <button id="create" class="primary">建立好友對戰房間 <span>→</span></button>
+      <button id="computer" class="computer-button">🤖 電腦對戰</button>
+      <div id="difficulty" class="difficulty hidden"><span>選擇難度</span><div><button data-level="easy">簡單</button><button data-level="normal" class="selected-level">普通</button><button data-level="hard">困難</button></div></div>
+      <div class="join"><span>或加入朋友的房間</span><div><input id="roomCode" maxlength="5" placeholder="房間代碼"><button id="join">加入</button></div></div>
+      <p id="lobbyError" class="error"></p>
+    </section>
+    <section id="game" class="game hidden">
+      <div class="room-bar panel"><div><span class="small-label">房間代碼</span><strong id="roomId">—</strong></div><button id="copyLink" class="text-button">複製邀請連結</button></div>
+      <div class="players panel"><div class="player black"><i></i><div><small>黑方</small><strong id="blackName">等待朋友加入</strong></div></div><div id="turnBadge" class="turn-badge">等待加入</div><div class="player red"><i></i><div><small>紅方</small><strong id="redName">—</strong></div></div></div>
+      <div class="board-wrap"><div id="board" class="board" aria-label="象棋棋盤"></div></div>
+      <div class="game-actions"><p id="status" aria-live="polite">正在準備棋局…</p><button id="restart" class="secondary">重新開始</button></div>
+      <p id="gameError" class="error"></p>
+    </section>
+  </main>
+  <template id="pieceTemplate"><button class="piece" type="button"></button></template>
+  <script src="xiangqi-ai.js"></script><script src="app.js"></script>
+</body>
+</html>
